@@ -85,7 +85,11 @@ public class SlidingPanel : MonoBehaviour
         if (!panelIsOpen) return;
         LeanTween.cancel(gameObject);
         currentSlidingTimer = slidingTimer - currentSlidingTimer;
-        LeanTween.moveLocalY(gameObject, closedPos.y, currentSlidingTimer).setOnComplete(() => currentOpenTabType = TabsType.None);
+        LeanTween.moveLocalY(gameObject, closedPos.y, currentSlidingTimer).setOnComplete(() =>
+        {
+            DeactivateListObjects(gridObjectCreator.GetGridObjectList(currentOpenTabType));
+            currentOpenTabType = TabsType.None;
+        });
         isSliding = true;
         panelIsOpen = false;
     }

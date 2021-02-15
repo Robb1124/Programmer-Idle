@@ -3100,7 +3100,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5277934f3715c9d45a71ee307b668cb0, type: 2}
   - {fileID: 11400000, guid: 5701c447f9366bd4b881fbecfebb658d, type: 2}
   - {fileID: 11400000, guid: 600cdb4100106f243b778960036175b8, type: 2}
-  studioGridObjectsData: []
+  studioGridObjectsData:
+  - {fileID: 11400000, guid: 903072a6025c5024996340f43e119355, type: 2}
+  - {fileID: 11400000, guid: 5d4546f9cde79c94dbcff31a5252b693, type: 2}
+  - {fileID: 11400000, guid: 478ab564a630d7448828572be74a4223, type: 2}
   crewGridObjectsData: []
 --- !u!1 &1745097818
 GameObject:

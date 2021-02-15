@@ -19,6 +19,7 @@ public class GridObjectCreator : MonoBehaviour
 
     private GameObject titleGridObjectPrefab;
     private GameObject heroUpgradeGridObjectPrefab;
+    private GameObject studioUpgradeGridObjectPrefab;
 
     private Dictionary<Type, GameObject> GridObjectTypeToGameObject;
 
@@ -31,10 +32,13 @@ public class GridObjectCreator : MonoBehaviour
 
         titleGridObjectPrefab = Resources.Load<GameObject>("TitleGridObject");
         heroUpgradeGridObjectPrefab = Resources.Load<GameObject>("HeroUpgradeGridObject");
+        studioUpgradeGridObjectPrefab =  Resources.Load<GameObject>("StudioUpgradeGridObject");
+
         GridObjectTypeToGameObject = new Dictionary<Type, GameObject>
         {
             {typeof(TitleGridObjectData), titleGridObjectPrefab},
-            {typeof(HeroUpgradeGridObjectData), heroUpgradeGridObjectPrefab}
+            {typeof(HeroUpgradeGridObjectData), heroUpgradeGridObjectPrefab},
+            {typeof(StudioUpgradeGridObjectData), studioUpgradeGridObjectPrefab}
         };
     }
 
