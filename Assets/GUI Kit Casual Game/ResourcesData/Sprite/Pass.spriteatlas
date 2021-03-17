@@ -44,7 +44,7 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: 7117d79a771584c12b4bc7f40b18743b, type: 3}
-    totalSpriteSurfaceArea: 949132
+    totalSpriteSurfaceArea: 949133
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -64,6 +64,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: fbc232a40047843fba0231c2a71ef457, type: 3}
   - {fileID: 21300000, guid: b779f7b448079467c9442503ad66781d, type: 3}
   - {fileID: 21300000, guid: 0972555577dae4776a602b0ce67c77f4, type: 3}
+  - {fileID: 21300000, guid: f9063926db9e109449d92037cbf9230d, type: 3}
   - {fileID: 21300000, guid: cd9d2a266a4664cd692ce7c032361041, type: 3}
   - {fileID: 21300000, guid: 7fd6e0462dd244573a18576c320addbc, type: 3}
   - {fileID: 21300000, guid: 115c4f46eb9974054913829ac1bcabec, type: 3}
@@ -101,6 +102,7 @@ SpriteAtlas:
   - pass_reward_frame_blue
   - pass_gradient_top
   - pass_btn_collect
+  - white texture
   - pass_reward_icon_gold
   - pass_reward_icon_glove
   - icon_normal_pass

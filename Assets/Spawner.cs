@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,7 +6,11 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     [SerializeField] private Enemy[] projectPrefab;
+    [SerializeField] private Transform spawnPoint;
     public bool wait = false;
+
+    public static event Action<Enemy> OnEnemySpawned;
+    
     void Start()
     {
 
@@ -22,18 +27,8 @@ public class Spawner : MonoBehaviour
 
     private void Spawn()
     {
-            for (int i = 0; i < projectPrefab.Length; i++)
-            {
-                if(projectPrefab[i] is null)
-                    {
-                        
-                    }
-                else
-                    {
-                        Instantiate(projectPrefab[i], transform.position, Quaternion.identity);
-                        wait = true;
-                        break;
-                    }
-            }
+        Enemy newSpawn = Instantiate(projectPrefab[UnityEngine.Random.Range(0, projectPrefab.Length)], spawnPoint.transform);
+        wait = true;
+        OnEnemySpawned?.Invoke(newSpawn);
     }
 }
