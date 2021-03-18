@@ -13,55 +13,95 @@ public class StartProd : MonoBehaviour
     public Image soundProduction;
     public Image gameDesignProduction;
 
-    public Enemy enemy;
+    [SerializeField] private Image programmingFrame;
+    [SerializeField] private Image artisticFrame;
+    [SerializeField] private Image soundFrame;
+    [SerializeField] private Image gameDesignFrame;
+    
+    [SerializeField] private ProjectHolder projectHolder;
 
     private float totalMaxProduction;
     private float totalCurrentProduction;
     
+    private ClickType clickType;
+
     private void Awake()
     {
         Spawner.OnEnemySpawned += HandleNewEnemySpawn;
     }
 
-    private void HandleNewEnemySpawn(Enemy newEnemy)
+    private void HandleNewEnemySpawn()
     {
-        enemy = newEnemy;
-        totalMaxProduction = enemy.GetTotalMaxProduction();
+        totalMaxProduction = projectHolder.GetTotalMaxProduction();
     }
     
     void Update()
     {
-        if (enemy == null)
-            enemy = FindObjectOfType<Enemy>();
-        else
-        {
-            AutoClick(Time.deltaTime);
-            programmingProduction.fillAmount = enemy.currentProgrammingPts / enemy.maxProgrammingPts;
-            artisticProduction.fillAmount = enemy.currentArtisticPts / enemy.maxArtisticPts;
-            soundProduction.fillAmount = enemy.currentSoundPts / enemy.maxSoundPts;
-            gameDesignProduction.fillAmount = enemy.currentGameDesignPts / enemy.maxGameDesignPts;
+        AutoClick(Time.deltaTime);
+        programmingProduction.fillAmount = (float)projectHolder.currentProgrammingPts / projectHolder.maxProgrammingPts;
+        artisticProduction.fillAmount = (float)projectHolder.currentArtisticPts / projectHolder.maxArtisticPts;
+        soundProduction.fillAmount = (float)projectHolder.currentSoundPts / projectHolder.maxSoundPts;
+        gameDesignProduction.fillAmount = (float)projectHolder.currentGameDesignPts / projectHolder.maxGameDesignPts;
 
-            totalCurrentProduction = enemy.GetTotalCurrentProduction();
+        totalCurrentProduction = projectHolder.GetTotalCurrentProduction();
 
-            txtProduction.text = $"{totalCurrentProduction / totalMaxProduction * 100:F0}%";
-        }
+        txtProduction.text = $"{totalCurrentProduction / totalMaxProduction * 100:F0}%";
     }
 
     public void AutoClick(float deltaTime)
     {       
-        enemy.currentProgrammingPts = Mathf.Clamp(enemy.currentProgrammingPts + StatsManager.instance.RequestStats(StatsQuery.CurrentProgrammingDPS) * deltaTime,0, enemy.maxProgrammingPts);
-        enemy.currentArtisticPts = Mathf.Clamp(enemy.currentArtisticPts + StatsManager.instance.RequestStats(StatsQuery.CurrentArtisticDPS) * deltaTime,0, enemy.maxArtisticPts);
-        enemy.currentSoundPts = Mathf.Clamp(enemy.currentSoundPts + StatsManager.instance.RequestStats(StatsQuery.CurrentSoundDPS) * deltaTime,0, enemy.maxSoundPts);
-        enemy.currentGameDesignPts = Mathf.Clamp(enemy.currentGameDesignPts + StatsManager.instance.RequestStats(StatsQuery.CurrentGameDesignDPS) * deltaTime,0, enemy.maxGameDesignPts);
+        projectHolder.currentProgrammingPts = Mathf.Clamp(projectHolder.currentProgrammingPts + StatsManager.instance.RequestStats(StatsQuery.CurrentProgrammingDPS) * deltaTime,0, projectHolder.maxProgrammingPts);
+        projectHolder.currentArtisticPts = Mathf.Clamp(projectHolder.currentArtisticPts + StatsManager.instance.RequestStats(StatsQuery.CurrentArtisticDPS) * deltaTime,0, projectHolder.maxArtisticPts);
+        projectHolder.currentSoundPts = Mathf.Clamp(projectHolder.currentSoundPts + StatsManager.instance.RequestStats(StatsQuery.CurrentSoundDPS) * deltaTime,0, projectHolder.maxSoundPts);
+        projectHolder.currentGameDesignPts = Mathf.Clamp(projectHolder.currentGameDesignPts + StatsManager.instance.RequestStats(StatsQuery.CurrentGameDesignDPS) * deltaTime,0, projectHolder.maxGameDesignPts);
     }
 
     public void ClickManual()
     {
-        // if(enemy.currentHealth < enemy.maxHealth)
-        // {
-        //     enemy.currentHealth += 1;
-        // }
+        switch (clickType)
+        {
+            case ClickType.Programming:
+                projectHolder.currentProgrammingPts = Mathf.Clamp(projectHolder.currentProgrammingPts + StatsManager.instance.RequestStats(StatsQuery.CurrentProgrammingTap),0, projectHolder.maxProgrammingPts);
+                break;
+            case ClickType.Artistic:
+                projectHolder.currentArtisticPts = Mathf.Clamp(projectHolder.currentArtisticPts + StatsManager.instance.RequestStats(StatsQuery.CurrentArtisticTap) ,0, projectHolder.maxArtisticPts);
+                break;
+            case ClickType.Sound:
+                projectHolder.currentSoundPts = Mathf.Clamp(projectHolder.currentSoundPts + StatsManager.instance.RequestStats(StatsQuery.CurrentSoundTap),0, projectHolder.maxSoundPts);
+                break;
+            case ClickType.GameDesign:
+                projectHolder.currentGameDesignPts = Mathf.Clamp(projectHolder.currentGameDesignPts + StatsManager.instance.RequestStats(StatsQuery.CurrentGameDesignTap),0, projectHolder.maxGameDesignPts);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
     }
 
-    
+    public void SetClickType(int index)
+    {
+        programmingFrame.enabled = false;
+        artisticFrame.enabled = false;
+        soundFrame.enabled = false;
+        gameDesignFrame.enabled = false;
+        
+        switch (index)
+        {
+            case 0:
+                clickType = ClickType.Programming;
+                programmingFrame.enabled = true;
+                break;
+            case 1:
+                clickType = ClickType.Artistic;
+                artisticFrame.enabled = true;
+                break;
+            case 2:
+                clickType = ClickType.Sound;
+                soundFrame.enabled = true;
+                break;
+            case 3:
+                clickType = ClickType.GameDesign;
+                gameDesignFrame.enabled = true;
+                break;
+        }
+    }
 }

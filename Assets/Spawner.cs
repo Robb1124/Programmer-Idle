@@ -2,33 +2,41 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = System.Random;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] private Enemy[] projectPrefab;
-    [SerializeField] private Transform spawnPoint;
-    public bool wait = false;
+    [SerializeField] private ProjectData[] simpleTasks;
+    [SerializeField] private ProjectData gameJam;
+    [Range(0.01f, 1.00f)]
+    [SerializeField] private float gameJamChances = 0.05f;
+    
+    [SerializeField] private ProjectHolder projectHolder;
 
-    public static event Action<Enemy> OnEnemySpawned;
+    public static event Action OnEnemySpawned;
     
     void Start()
     {
-
+        Spawn();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (wait == false)
-        {
-            Spawn();
-        }
-    }
-
+    
     private void Spawn()
     {
-        Enemy newSpawn = Instantiate(projectPrefab[UnityEngine.Random.Range(0, projectPrefab.Length)], spawnPoint.transform);
-        wait = true;
-        OnEnemySpawned?.Invoke(newSpawn);
+        float rand = UnityEngine.Random.Range(0.00f, 1.00f);
+        if (rand <= gameJamChances)
+        {
+            projectHolder.GetProjectData(gameJam, true);
+        }
+        else
+        {
+            int randIndex = UnityEngine.Random.Range(0, simpleTasks.Length);
+            projectHolder.GetProjectData(simpleTasks[randIndex]);
+        }
+        OnEnemySpawned?.Invoke();
+    }
+
+    public void RequestNewProject()
+    {
+        Spawn();
     }
 }
