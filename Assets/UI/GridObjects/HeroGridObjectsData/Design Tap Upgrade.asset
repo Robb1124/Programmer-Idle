@@ -16,8 +16,12 @@ MonoBehaviour:
   UpgradeTitle: Research and development
   UpgradeDescription: You play video games to discover new and interesting mechanics.
     This is serious.
+  incrementalUpgrade:
+    upgradeType: 4
+    baseValue: 38
+    increasedByEachTime: 0.1
   Price:
-    amount: 24
+    amount: 860
     currencyType: 0
   StatsToShow: 1
   statsQuery: 4

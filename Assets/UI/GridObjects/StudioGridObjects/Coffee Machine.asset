@@ -20,4 +20,4 @@ MonoBehaviour:
     currencyType: 1
   upgrade:
     upgradeType: 0
-    upgradeValue: 25
+    upgradeValue: 0.25

@@ -32,7 +32,7 @@ public class ProjectHolder : MonoBehaviour
 
     private bool onGoingProject;
     private int currentGoldReward;
-    
+    private bool isGameJam = false;
     [SerializeField] private Spawner spawnerScript;
     [SerializeField] private ResourcesManager resourcesManager;
     
@@ -48,6 +48,8 @@ public class ProjectHolder : MonoBehaviour
             {
                 onGoingProject = false;
                 resourcesManager.AddGold(currentGoldReward);
+                if (isGameJam)
+                    resourcesManager.GameJamDone();
                 spawnerScript.RequestNewProject();
             }
         }
@@ -55,6 +57,7 @@ public class ProjectHolder : MonoBehaviour
 
     public void GetProjectData(ProjectData projectData, bool gameJam = false)
     {
+        isGameJam = gameJam;
         currentProjectData = projectData;
         ResetAllCurrentsProduction();
         projectImage.sprite = currentProjectData.projectSprite;

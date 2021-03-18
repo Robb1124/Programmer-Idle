@@ -16,8 +16,12 @@ MonoBehaviour:
   UpgradeTitle: Draw Doodles in your sketchbook
   UpgradeDescription: You draw some doodles to relieve yourself form the game industry
     anxiety
+  incrementalUpgrade:
+    upgradeType: 0
+    baseValue: 14
+    increasedByEachTime: 0.1
   Price:
-    amount: 14
+    amount: 60
     currencyType: 0
   StatsToShow: 1
   statsQuery: 2

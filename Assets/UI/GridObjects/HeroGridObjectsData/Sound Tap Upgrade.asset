@@ -16,8 +16,12 @@ MonoBehaviour:
   UpgradeTitle: Listen to your favorite game osts
   UpgradeDescription: You listen to your carefully curated playlist in search for
     inspiration.
+  incrementalUpgrade:
+    upgradeType: 0
+    baseValue: 25
+    increasedByEachTime: 0.1
   Price:
-    amount: 18
+    amount: 240
     currencyType: 0
   StatsToShow: 1
   statsQuery: 3
