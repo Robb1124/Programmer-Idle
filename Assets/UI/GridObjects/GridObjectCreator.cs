@@ -17,9 +17,10 @@ public class GridObjectCreator : MonoBehaviour
     private List<GridObjectEntry> studioGridObjects = new List<GridObjectEntry>();
     private List<GridObjectEntry> crewGridObjects = new List<GridObjectEntry>();
 
-    private GameObject titleGridObjectPrefab;
-    private GameObject heroUpgradeGridObjectPrefab;
-    private GameObject studioUpgradeGridObjectPrefab;
+    [SerializeField] private GameObject titleGridObjectPrefab;
+    [SerializeField] private GameObject heroUpgradeGridObjectPrefab;
+    [SerializeField] private GameObject studioUpgradeGridObjectPrefab;
+    [SerializeField] private GameObject crewGridObjectPrefab;
 
     private Dictionary<Type, GameObject> GridObjectTypeToGameObject;
 
@@ -30,15 +31,12 @@ public class GridObjectCreator : MonoBehaviour
         else 
             Destroy(this);
 
-        titleGridObjectPrefab = Resources.Load<GameObject>("TitleGridObject");
-        heroUpgradeGridObjectPrefab = Resources.Load<GameObject>("HeroUpgradeGridObject");
-        studioUpgradeGridObjectPrefab =  Resources.Load<GameObject>("StudioUpgradeGridObject");
-
         GridObjectTypeToGameObject = new Dictionary<Type, GameObject>
         {
             {typeof(TitleGridObjectData), titleGridObjectPrefab},
             {typeof(HeroUpgradeGridObjectData), heroUpgradeGridObjectPrefab},
-            {typeof(StudioUpgradeGridObjectData), studioUpgradeGridObjectPrefab}
+            {typeof(StudioUpgradeGridObjectData), studioUpgradeGridObjectPrefab},
+            {typeof(CrewGridObjectData), crewGridObjectPrefab}
         };
     }
 

@@ -32,10 +32,32 @@ public class StatsManager : MonoBehaviour
     private float temporaryGameDesignTapMultiplier = 1f;
     
     
-    [SerializeField] private int currentProgrammingDPS;
-    [SerializeField] private int currentArtisticDPS;
-    [SerializeField] private int currentSoundDPS;
-    [SerializeField] private int currentGameDesignDPS;
+    private int currentProgrammingDPS =>
+        Mathf.RoundToInt(baseProgrammingDPS * permanentProgrammingDPSMultiplier * temporaryProgrammingDPSMultiplier * studioProductivity);
+    [SerializeField] private float baseProgrammingDPS;
+    private float permanentProgrammingDPSMultiplier = 1f;
+    private float temporaryProgrammingDPSMultiplier = 1f;
+    
+    private int currentArtisticDPS =>
+        Mathf.RoundToInt(baseArtisticDPS * permanentArtisticDPSMultiplier * temporaryArtisticDPSMultiplier * studioProductivity);
+    [SerializeField] private float baseArtisticDPS;
+    private float permanentArtisticDPSMultiplier = 1f;
+    private float temporaryArtisticDPSMultiplier = 1f;
+    
+    private int currentSoundDPS =>
+        Mathf.RoundToInt(baseSoundDPS * permanentSoundDPSMultiplier * temporarySoundDPSMultiplier * studioProductivity);
+    [SerializeField] private float baseSoundDPS;
+    private float permanentSoundDPSMultiplier = 1f;
+    private float temporarySoundDPSMultiplier = 1f;
+    
+    
+    private int currentGameDesignDPS =>
+        Mathf.RoundToInt(baseGameDesignDPS * permanentGameDesignDPSMultiplier * temporaryGameDesignDPSMultiplier * studioProductivity);
+    [SerializeField] private float baseGameDesignDPS;
+    private float permanentGameDesignDPSMultiplier = 1f;
+    private float temporaryGameDesignDPSMultiplier = 1f;
+    
+    
 
     [SerializeField] private float studioProductivity = 1f;
     private string programmingColorTag = "<color=#0075db>";
@@ -71,6 +93,14 @@ public class StatsManager : MonoBehaviour
                 return $"{soundColorTag}Sound Design Pts per Tap : {currentSoundTap}";
             case StatsQuery.CurrentGameDesignTap:
                 return $"{gameDesignColorTag}Game Design Pts per Tap : {currentGameDesignTap}";
+            case StatsQuery.CurrentProgrammingDPS:
+                return $"{programmingColorTag}Programming Pts per Seconds : {currentProgrammingDPS}";
+            case StatsQuery.CurrentArtisticDPS:
+                return $"{artisticColorTag}Artistic Pts per Seconds : {currentArtisticDPS}";
+            case StatsQuery.CurrentSoundDPS:
+                return $"{soundColorTag}Sound Pts per Seconds : {currentSoundDPS}";
+            case StatsQuery.CurrentGameDesignDPS:
+                return $"{gameDesignColorTag}Game Design Pts per Seconds : {currentGameDesignDPS}";
             default:
                 throw new ArgumentOutOfRangeException(nameof(statsQuery), statsQuery, null);
         }
@@ -128,12 +158,20 @@ public class StatsManager : MonoBehaviour
             case UpgradeType.AllTaps:
                 break;
             case UpgradeType.ProgrammingDPS:
+                baseProgrammingDPS += (incrementalUpgrade.baseValue *
+                                       Mathf.Pow(1f + incrementalUpgrade.increasedByEachTime, amountBuyed));
                 break;
             case UpgradeType.ArtisticDPS:
+                baseArtisticDPS += (incrementalUpgrade.baseValue *
+                                       Mathf.Pow(1f + incrementalUpgrade.increasedByEachTime, amountBuyed));
                 break;
             case UpgradeType.SoundDPS:
+                baseSoundDPS += (incrementalUpgrade.baseValue *
+                                       Mathf.Pow(1f + incrementalUpgrade.increasedByEachTime, amountBuyed));
                 break;
             case UpgradeType.GameDesignDPS:
+                baseGameDesignDPS += (incrementalUpgrade.baseValue *
+                                       Mathf.Pow(1f + incrementalUpgrade.increasedByEachTime, amountBuyed));
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
