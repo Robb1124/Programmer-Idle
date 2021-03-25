@@ -7,6 +7,7 @@ public static class UpgradeStringMaker
 {
     public static string GetUpgradeString(UpgradeType upgradeType, float upgradeValue)
     {
+        upgradeValue *= 100f;
         switch (upgradeType)
         {
             case UpgradeType.StudioProductivity:

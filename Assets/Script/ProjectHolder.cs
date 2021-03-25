@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -15,7 +16,7 @@ public class ProjectHolder : MonoBehaviour
     [SerializeField] private GameObject artisticBarHolder;
     [SerializeField] private GameObject soundBarHolder;
     [SerializeField] private GameObject gameDesignBarHolder;
-
+    [SerializeField] private StageScript stageManager;
     public int maxProgrammingPts;
     public float currentProgrammingPts;
     public int maxArtisticPts;
@@ -37,6 +38,7 @@ public class ProjectHolder : MonoBehaviour
     [SerializeField] private ResourcesManager resourcesManager;
     
     private ProjectData currentProjectData;
+    public static event Action OnTaskDone;
     
     // Update is called once per frame
     void Update()
@@ -50,6 +52,7 @@ public class ProjectHolder : MonoBehaviour
                 resourcesManager.AddGold(currentGoldReward);
                 if (isGameJam)
                     resourcesManager.GameJamDone();
+                OnTaskDone?.Invoke();
                 spawnerScript.RequestNewProject();
             }
         }
@@ -62,14 +65,16 @@ public class ProjectHolder : MonoBehaviour
         ResetAllCurrentsProduction();
         projectImage.sprite = currentProjectData.projectSprite;
         projectNameText.text = currentProjectData.projectName;
-        
+
+        float productionPtsStageMultiplier = Mathf.Pow(1.20f, stageManager.currentNbrStage - 1);
+        float goldStageMultiplier = Mathf.Pow(1.3f, stageManager.currentNbrStage - 1);
         float variation;
         if (currentProjectData.programming)
         {
             programmingDone = false;
             variation = UnityEngine.Random.Range(0.75f, 1.25f);
             programmingBarHolder.SetActive(true);
-            maxProgrammingPts = Mathf.RoundToInt(BASE_PTS * variation * currentProjectData.ptsMultiplier);
+            maxProgrammingPts = Mathf.RoundToInt(BASE_PTS * variation * currentProjectData.ptsMultiplier * productionPtsStageMultiplier);
         }
         else
         {
@@ -82,7 +87,7 @@ public class ProjectHolder : MonoBehaviour
             artisticDone = false;
             variation = UnityEngine.Random.Range(0.75f, 1.25f);
             artisticBarHolder.SetActive(true);
-            maxArtisticPts = Mathf.RoundToInt(BASE_PTS * variation * currentProjectData.ptsMultiplier);
+            maxArtisticPts = Mathf.RoundToInt(BASE_PTS * variation * currentProjectData.ptsMultiplier * productionPtsStageMultiplier);
         }
         else
         {
@@ -95,7 +100,7 @@ public class ProjectHolder : MonoBehaviour
             soundDone = false;
             variation = UnityEngine.Random.Range(0.75f, 1.25f);
             soundBarHolder.SetActive(true);
-            maxSoundPts = Mathf.RoundToInt(BASE_PTS * variation * currentProjectData.ptsMultiplier);
+            maxSoundPts = Mathf.RoundToInt(BASE_PTS * variation * currentProjectData.ptsMultiplier * productionPtsStageMultiplier);
         }
         else
         {
@@ -108,7 +113,7 @@ public class ProjectHolder : MonoBehaviour
             gameDesignDone = false;
             variation = UnityEngine.Random.Range(0.75f, 1.25f);
             gameDesignBarHolder.SetActive(true);
-            maxGameDesignPts = Mathf.RoundToInt(BASE_PTS * variation * currentProjectData.ptsMultiplier);
+            maxGameDesignPts = Mathf.RoundToInt(BASE_PTS * variation * currentProjectData.ptsMultiplier * productionPtsStageMultiplier);
         }
         else
         {
@@ -117,7 +122,7 @@ public class ProjectHolder : MonoBehaviour
         }
 
         variation = UnityEngine.Random.Range(0.75f, 1.25f);
-        currentGoldReward = Mathf.RoundToInt(BASE_GOLD * variation * currentProjectData.goldMultiplier);
+        currentGoldReward = Mathf.RoundToInt(BASE_GOLD * variation * currentProjectData.goldMultiplier * goldStageMultiplier);
         
         onGoingProject = true;
     }

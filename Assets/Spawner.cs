@@ -6,8 +6,11 @@ using Random = System.Random;
 
 public class Spawner : MonoBehaviour
 {
+    [SerializeField] private StageScript stageManager;
     [SerializeField] private ProjectData[] simpleTasks;
     [SerializeField] private ProjectData gameJam;
+    [SerializeField] private ProjectData[] bossDatas;
+    
     [Range(0.01f, 1.00f)]
     [SerializeField] private float gameJamChances = 0.05f;
     
@@ -22,15 +25,23 @@ public class Spawner : MonoBehaviour
     
     private void Spawn()
     {
-        float rand = UnityEngine.Random.Range(0.00f, 1.00f);
-        if (rand <= gameJamChances)
+        if (!stageManager.NeedBoss)
         {
-            projectHolder.GetProjectData(gameJam, true);
+            float rand = UnityEngine.Random.Range(0.00f, 1.00f);
+            if (rand <= gameJamChances)
+            {
+                projectHolder.GetProjectData(gameJam, true);
+            }
+            else
+            {
+                int randIndex = UnityEngine.Random.Range(0, simpleTasks.Length);
+                projectHolder.GetProjectData(simpleTasks[randIndex]);
+            }
         }
         else
         {
-            int randIndex = UnityEngine.Random.Range(0, simpleTasks.Length);
-            projectHolder.GetProjectData(simpleTasks[randIndex]);
+            int randIndex = UnityEngine.Random.Range(0, bossDatas.Length);
+            projectHolder.GetProjectData(bossDatas[randIndex]);
         }
         OnEnemySpawned?.Invoke();
     }

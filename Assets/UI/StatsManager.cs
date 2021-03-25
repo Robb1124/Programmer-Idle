@@ -8,58 +8,59 @@ public class StatsManager : MonoBehaviour
     public static StatsManager instance;
 
     private int currentProgrammingTap =>
-        Mathf.RoundToInt(baseProgrammingTap * permanentProgrammingTapMultiplier * temporaryProgrammingTapMultiplier * studioProductivity);
+        Mathf.RoundToInt(baseProgrammingTap * permanentProgrammingTapMultiplier * temporaryProgrammingTapMultiplier * studioProductivity * allTapsMultiplier);
     [SerializeField]  private float baseProgrammingTap;
-    private float permanentProgrammingTapMultiplier = 1f;
+    [SerializeField]private float permanentProgrammingTapMultiplier = 1f;
     private float temporaryProgrammingTapMultiplier = 1f;
     
     private int currentArtisticTap =>
-        Mathf.RoundToInt(baseArtisticTap * permanentArtisticTapMultiplier * temporaryArtisticTapMultiplier * studioProductivity);
+        Mathf.RoundToInt(baseArtisticTap * permanentArtisticTapMultiplier * temporaryArtisticTapMultiplier * studioProductivity * allTapsMultiplier);
     [SerializeField]  private float baseArtisticTap;
-    private float permanentArtisticTapMultiplier = 1f;
+    [SerializeField]private float permanentArtisticTapMultiplier = 1f;
     private float temporaryArtisticTapMultiplier = 1f;
     
     private int currentSoundTap =>
-        Mathf.RoundToInt(baseSoundTap * permanentSoundTapMultiplier * temporarySoundTapMultiplier * studioProductivity);
+        Mathf.RoundToInt(baseSoundTap * permanentSoundTapMultiplier * temporarySoundTapMultiplier * studioProductivity * allTapsMultiplier);
     [SerializeField]  private float baseSoundTap;
-    private float permanentSoundTapMultiplier = 1f;
+    [SerializeField]private float permanentSoundTapMultiplier = 1f;
     private float temporarySoundTapMultiplier = 1f;
     
     private int currentGameDesignTap =>
-        Mathf.RoundToInt(baseGameDesignTap * permanentGameDesignTapMultiplier * temporaryGameDesignTapMultiplier * studioProductivity);
+        Mathf.RoundToInt(baseGameDesignTap * permanentGameDesignTapMultiplier * temporaryGameDesignTapMultiplier * studioProductivity * allTapsMultiplier);
     [SerializeField]  private float baseGameDesignTap;
-    private float permanentGameDesignTapMultiplier = 1f;
+    [SerializeField]private float permanentGameDesignTapMultiplier = 1f;
     private float temporaryGameDesignTapMultiplier = 1f;
     
     
     private int currentProgrammingDPS =>
         Mathf.RoundToInt(baseProgrammingDPS * permanentProgrammingDPSMultiplier * temporaryProgrammingDPSMultiplier * studioProductivity);
     [SerializeField] private float baseProgrammingDPS;
-    private float permanentProgrammingDPSMultiplier = 1f;
+    [SerializeField]private float permanentProgrammingDPSMultiplier = 1f;
     private float temporaryProgrammingDPSMultiplier = 1f;
     
     private int currentArtisticDPS =>
         Mathf.RoundToInt(baseArtisticDPS * permanentArtisticDPSMultiplier * temporaryArtisticDPSMultiplier * studioProductivity);
     [SerializeField] private float baseArtisticDPS;
-    private float permanentArtisticDPSMultiplier = 1f;
+    [SerializeField]private float permanentArtisticDPSMultiplier = 1f;
     private float temporaryArtisticDPSMultiplier = 1f;
     
     private int currentSoundDPS =>
         Mathf.RoundToInt(baseSoundDPS * permanentSoundDPSMultiplier * temporarySoundDPSMultiplier * studioProductivity);
     [SerializeField] private float baseSoundDPS;
-    private float permanentSoundDPSMultiplier = 1f;
+    [SerializeField]private float permanentSoundDPSMultiplier = 1f;
     private float temporarySoundDPSMultiplier = 1f;
     
     
     private int currentGameDesignDPS =>
         Mathf.RoundToInt(baseGameDesignDPS * permanentGameDesignDPSMultiplier * temporaryGameDesignDPSMultiplier * studioProductivity);
     [SerializeField] private float baseGameDesignDPS;
-    private float permanentGameDesignDPSMultiplier = 1f;
+    [SerializeField]private float permanentGameDesignDPSMultiplier = 1f;
     private float temporaryGameDesignDPSMultiplier = 1f;
     
     
 
     [SerializeField] private float studioProductivity = 1f;
+    [SerializeField] private float allTapsMultiplier = 1f;
     private string programmingColorTag = "<color=#0075db>";
     private string artisticColorTag = "<color=#00de0e>";
     private string soundColorTag = "<color=#b800df>";
@@ -188,22 +189,31 @@ public class StatsManager : MonoBehaviour
                 studioProductivity *= (1 + upgrade.upgradeValue);
                 break;
             case UpgradeType.ProgrammingTap:
+                permanentProgrammingTapMultiplier *= (1 + upgrade.upgradeValue);
                 break;
             case UpgradeType.ArtisticTap:
+                permanentArtisticTapMultiplier *= (1 + upgrade.upgradeValue);
                 break;
             case UpgradeType.SoundTap:
+                permanentSoundTapMultiplier *= (1 + upgrade.upgradeValue);
                 break;
             case UpgradeType.GameDesignTap:
+                permanentGameDesignTapMultiplier *= (1 + upgrade.upgradeValue);
                 break;
             case UpgradeType.AllTaps:
+                allTapsMultiplier *= (1 + upgrade.upgradeValue);
                 break;
             case UpgradeType.ProgrammingDPS:
+                permanentProgrammingDPSMultiplier *= (1 + upgrade.upgradeValue);
                 break;
             case UpgradeType.ArtisticDPS:
+                permanentArtisticDPSMultiplier *= (1 + upgrade.upgradeValue);
                 break;
             case UpgradeType.SoundDPS:
+                permanentSoundDPSMultiplier *= (1 + upgrade.upgradeValue);
                 break;
             case UpgradeType.GameDesignDPS:
+                permanentGameDesignDPSMultiplier *= (1 + upgrade.upgradeValue);
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
