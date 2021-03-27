@@ -17,11 +17,11 @@ MonoBehaviour:
   UpgradeDescription: You draw some doodles to relieve yourself form the game industry
     anxiety
   incrementalUpgrade:
-    upgradeType: 0
-    baseValue: 14
+    upgradeType: 2
+    baseValue: 6
     increasedByEachTime: 0.1
   Price:
-    amount: 60
+    amount: 14
     currencyType: 0
   StatsToShow: 1
   statsQuery: 2

@@ -20,7 +20,7 @@ MonoBehaviour:
     baseValue: 6
     increasedByEachTime: 0.1
   Price:
-    amount: 8
+    amount: 14
     currencyType: 0
   StatsToShow: 1
   statsQuery: 1

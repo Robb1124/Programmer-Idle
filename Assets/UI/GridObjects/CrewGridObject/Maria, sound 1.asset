@@ -17,10 +17,10 @@ MonoBehaviour:
   UpgradeDescription: Always ready to craft, she always wear huge headphones.
   incrementalUpgrade:
     upgradeType: 8
-    baseValue: 11
+    baseValue: 10
     increasedByEachTime: 0.1
   Price:
-    amount: 260
+    amount: 150
     currencyType: 0
   StatsToShow: 1
   statsQuery: 7

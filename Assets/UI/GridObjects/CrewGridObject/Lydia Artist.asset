@@ -18,10 +18,10 @@ MonoBehaviour:
     mediums.
   incrementalUpgrade:
     upgradeType: 7
-    baseValue: 6
+    baseValue: 10
     increasedByEachTime: 0.1
   Price:
-    amount: 135
+    amount: 150
     currencyType: 0
   StatsToShow: 1
   statsQuery: 6

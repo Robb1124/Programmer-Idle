@@ -17,10 +17,10 @@ MonoBehaviour:
   UpgradeDescription: Played every strategy and roguelike games. Beware feature creep.
   incrementalUpgrade:
     upgradeType: 9
-    baseValue: 25
+    baseValue: 10
     increasedByEachTime: 0.1
   Price:
-    amount: 756
+    amount: 150
     currencyType: 0
   StatsToShow: 1
   statsQuery: 8

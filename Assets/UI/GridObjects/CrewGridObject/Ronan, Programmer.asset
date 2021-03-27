@@ -17,10 +17,10 @@ MonoBehaviour:
   UpgradeDescription: Has been coding games since he was 3 months-old. Enough said.
   incrementalUpgrade:
     upgradeType: 6
-    baseValue: 60
+    baseValue: 10
     increasedByEachTime: 0.1
   Price:
-    amount: 1824
+    amount: 150
     currencyType: 0
   StatsToShow: 1
   statsQuery: 5

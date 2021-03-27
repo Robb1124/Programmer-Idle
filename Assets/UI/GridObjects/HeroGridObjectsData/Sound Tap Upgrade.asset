@@ -17,11 +17,11 @@ MonoBehaviour:
   UpgradeDescription: You listen to your carefully curated playlist in search for
     inspiration.
   incrementalUpgrade:
-    upgradeType: 0
-    baseValue: 25
+    upgradeType: 3
+    baseValue: 6
     increasedByEachTime: 0.1
   Price:
-    amount: 240
+    amount: 14
     currencyType: 0
   StatsToShow: 1
   statsQuery: 3
