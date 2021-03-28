@@ -90,4 +90,10 @@ public class ResourcesManager : MonoBehaviour
         PlayerPrefs.SetInt("playerGold", playerGold);
         PlayerPrefs.SetInt("playerGems", PlayerGems);
     }
+
+    public void AddGems(int gemsAmount)
+    {
+        playerGems += gemsAmount;
+        RefreshText();
+    }
 }
