@@ -2670,7 +2670,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -185, y: 0}
-  m_SizeDelta: {x: 294.575, y: 112.986}
+  m_SizeDelta: {x: 392.4913, y: 112.986}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &473539234
 MonoBehaviour:
@@ -11301,7 +11301,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 903072a6025c5024996340f43e119355, type: 2}
   - {fileID: 11400000, guid: 5d4546f9cde79c94dbcff31a5252b693, type: 2}
   - {fileID: 11400000, guid: 478ab564a630d7448828572be74a4223, type: 2}
-  - {fileID: 11400000, guid: 0cd3603b8aeb4f84e96a083049d265e6, type: 2}
+  - {fileID: 11400000, guid: 3fa950a3e860127428e78375cd50db88, type: 2}
   crewGridObjectsData:
   - {fileID: 11400000, guid: 87a98679843e1ac4b9301af2a798bf41, type: 2}
   - {fileID: 11400000, guid: b7d07929663bfdd489f29b14638e1fe8, type: 2}

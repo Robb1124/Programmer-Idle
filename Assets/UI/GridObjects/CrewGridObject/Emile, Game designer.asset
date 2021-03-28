@@ -19,7 +19,7 @@ MonoBehaviour:
   incrementalUpgrade:
     upgradeType: 9
     baseValue: 20
-    increasedByEachTime: 0.1
+    increasedByEachTime: 0.08
   Price:
     amount: 150
     currencyType: 0
