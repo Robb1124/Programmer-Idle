@@ -18,7 +18,6 @@ public class CrewGridObject : GridObject
     private Price currentPrice = new Price();
     
     private CrewGridObjectData data;
-    private int amountBuyed = 0;
     
     private bool statsToShow;
     private ResourcesManager resourcesManager;
@@ -71,7 +70,7 @@ public class CrewGridObject : GridObject
 
     private void SetPrice()
     {
-        currentPrice.amount = Mathf.RoundToInt(price.amount * (Mathf.Pow(1f + ResourcesManager.PRICE_INCREASED, amountBuyed)));
+        currentPrice.amount = Mathf.RoundToInt(price.amount * (Mathf.Pow(1f + ResourcesManager.PRICE_INCREASED, amountBought)));
         priceText.text = currentPrice.GetPriceText();
     }
 
@@ -80,9 +79,15 @@ public class CrewGridObject : GridObject
         if (resourcesManager.CheckIfEnoughResource(currentPrice))
         {
             resourcesManager.Buy(currentPrice);
-            StatsManager.instance.UpgradeBaseStats(incrementalUpgrade, amountBuyed);
-            amountBuyed++;
+            StatsManager.instance.UpgradeBaseStats(incrementalUpgrade, amountBought);
+            amountBought++;
             SetPrice();
+            ManualSave();
         }
+    }
+    
+    private void OnDestroy()
+    {
+        StatsManager.OnStatsChanged -= HandleStatsChanged;
     }
 }

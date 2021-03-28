@@ -33,26 +33,26 @@ public class StatsManager : MonoBehaviour
     
     
     private int currentProgrammingDPS =>
-        Mathf.RoundToInt(baseProgrammingDPS * permanentProgrammingDPSMultiplier * temporaryProgrammingDPSMultiplier * studioProductivity);
+        Mathf.RoundToInt(baseProgrammingDPS * permanentProgrammingDPSMultiplier * temporaryProgrammingDPSMultiplier * studioProductivity * AbilityManager.instance.DpsMultiplier);
     [SerializeField] private float baseProgrammingDPS;
     [SerializeField]private float permanentProgrammingDPSMultiplier = 1f;
     private float temporaryProgrammingDPSMultiplier = 1f;
     
     private int currentArtisticDPS =>
-        Mathf.RoundToInt(baseArtisticDPS * permanentArtisticDPSMultiplier * temporaryArtisticDPSMultiplier * studioProductivity);
+        Mathf.RoundToInt(baseArtisticDPS * permanentArtisticDPSMultiplier * temporaryArtisticDPSMultiplier * studioProductivity * AbilityManager.instance.DpsMultiplier);
     [SerializeField] private float baseArtisticDPS;
     [SerializeField]private float permanentArtisticDPSMultiplier = 1f;
     private float temporaryArtisticDPSMultiplier = 1f;
     
     private int currentSoundDPS =>
-        Mathf.RoundToInt(baseSoundDPS * permanentSoundDPSMultiplier * temporarySoundDPSMultiplier * studioProductivity);
+        Mathf.RoundToInt(baseSoundDPS * permanentSoundDPSMultiplier * temporarySoundDPSMultiplier * studioProductivity * AbilityManager.instance.DpsMultiplier);
     [SerializeField] private float baseSoundDPS;
     [SerializeField]private float permanentSoundDPSMultiplier = 1f;
     private float temporarySoundDPSMultiplier = 1f;
     
     
     private int currentGameDesignDPS =>
-        Mathf.RoundToInt(baseGameDesignDPS * permanentGameDesignDPSMultiplier * temporaryGameDesignDPSMultiplier * studioProductivity);
+        Mathf.RoundToInt(baseGameDesignDPS * permanentGameDesignDPSMultiplier * temporaryGameDesignDPSMultiplier * studioProductivity * AbilityManager.instance.DpsMultiplier);
     [SerializeField] private float baseGameDesignDPS;
     [SerializeField]private float permanentGameDesignDPSMultiplier = 1f;
     private float temporaryGameDesignDPSMultiplier = 1f;
@@ -73,6 +73,33 @@ public class StatsManager : MonoBehaviour
     {
         if (instance == null) instance = this;
         else Destroy(this);
+        
+        baseProgrammingTap = PlayerPrefs.GetFloat("baseProgrammingTap", baseProgrammingTap);
+        permanentProgrammingTapMultiplier = PlayerPrefs.GetFloat("permanentProgrammingTapMultiplier", permanentProgrammingTapMultiplier);
+
+        baseArtisticTap = PlayerPrefs.GetFloat("baseArtisticTap", baseArtisticTap);
+        permanentArtisticTapMultiplier = PlayerPrefs.GetFloat("permanentArtisticTapMultiplier", permanentArtisticTapMultiplier);
+
+        baseSoundTap = PlayerPrefs.GetFloat("baseSoundTap", baseSoundTap);
+        permanentSoundTapMultiplier = PlayerPrefs.GetFloat("permanentSoundTapMultiplier", permanentSoundTapMultiplier);
+
+        baseGameDesignTap = PlayerPrefs.GetFloat("baseGameDesignTap", baseGameDesignTap);
+        permanentGameDesignTapMultiplier = PlayerPrefs.GetFloat("permanentGameDesignTapMultiplier", permanentGameDesignTapMultiplier);
+        
+        baseProgrammingDPS = PlayerPrefs.GetFloat("baseProgrammingDPS", baseProgrammingDPS);
+        permanentProgrammingDPSMultiplier = PlayerPrefs.GetFloat("permanentProgrammingDPSMultiplier", permanentProgrammingDPSMultiplier);
+
+        baseArtisticDPS = PlayerPrefs.GetFloat("baseArtisticDPS", baseArtisticDPS);
+        permanentArtisticDPSMultiplier = PlayerPrefs.GetFloat("permanentArtisticDPSMultiplier", permanentArtisticDPSMultiplier);
+
+        baseSoundDPS = PlayerPrefs.GetFloat("baseSoundDPS", baseSoundDPS);
+        permanentSoundDPSMultiplier = PlayerPrefs.GetFloat("permanentSoundDPSMultiplier", permanentSoundDPSMultiplier);
+
+        baseGameDesignDPS = PlayerPrefs.GetFloat("baseGameDesignDPS", baseGameDesignDPS);
+        permanentGameDesignDPSMultiplier = PlayerPrefs.GetFloat("permanentGameDesignDPSMultiplier", permanentGameDesignDPSMultiplier);
+
+        studioProductivity = PlayerPrefs.GetFloat("studioProductivity", studioProductivity);
+        allTapsMultiplier = PlayerPrefs.GetFloat("allTapsMultiplier", allTapsMultiplier);
     }
 
     private void Start()
@@ -219,6 +246,46 @@ public class StatsManager : MonoBehaviour
                 throw new ArgumentOutOfRangeException();
         }
         
+        OnStatsChanged?.Invoke();
+    }
+
+    private void OnApplicationQuit()
+    {
+        PlayerPrefs.SetFloat("baseProgrammingTap", baseProgrammingTap);
+        PlayerPrefs.SetFloat("permanentProgrammingTapMultiplier", permanentProgrammingTapMultiplier);
+
+        PlayerPrefs.SetFloat("baseArtisticTap", baseArtisticTap);
+        PlayerPrefs.SetFloat("permanentArtisticTapMultiplier", permanentArtisticTapMultiplier);
+
+        PlayerPrefs.SetFloat("baseSoundTap", baseSoundTap);
+        PlayerPrefs.SetFloat("permanentSoundTapMultiplier", permanentSoundTapMultiplier);
+
+        PlayerPrefs.SetFloat("baseGameDesignTap", baseGameDesignTap);
+        PlayerPrefs.SetFloat("permanentGameDesignTapMultiplier", permanentGameDesignTapMultiplier);
+        
+        PlayerPrefs.SetFloat("baseProgrammingDPS", baseProgrammingDPS);
+        PlayerPrefs.SetFloat("permanentProgrammingDPSMultiplier", permanentProgrammingDPSMultiplier);
+
+        PlayerPrefs.SetFloat("baseArtisticDPS", baseArtisticDPS);
+        PlayerPrefs.SetFloat("permanentArtisticDPSMultiplier", permanentArtisticDPSMultiplier);
+
+        PlayerPrefs.SetFloat("baseSoundDPS", baseSoundDPS);
+        PlayerPrefs.SetFloat("permanentSoundDPSMultiplier", permanentSoundDPSMultiplier);
+
+        PlayerPrefs.SetFloat("baseGameDesignDPS", baseGameDesignDPS);
+        PlayerPrefs.SetFloat("permanentGameDesignDPSMultiplier", permanentGameDesignDPSMultiplier);
+
+        PlayerPrefs.SetFloat("studioProductivity", studioProductivity);
+        PlayerPrefs.SetFloat("allTapsMultiplier", allTapsMultiplier);
+    }
+
+    public int GetAverageDPS()
+    {
+        return (currentProgrammingDPS + currentArtisticDPS + currentSoundDPS + currentGameDesignDPS) / 4;
+    }
+
+    public void Invoke_StatsChanged()
+    {
         OnStatsChanged?.Invoke();
     }
 }

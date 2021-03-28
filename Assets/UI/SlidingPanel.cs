@@ -19,7 +19,7 @@ public class SlidingPanel : MonoBehaviour
     
     public bool PanelIsOpen => panelIsOpen;
 
-    [SerializeField] private float slidingTimer = 0.75f;
+    [SerializeField] private float slidingTimer = 0.5f;
     private float currentSlidingTimer = 0;
     private bool isSliding;
     private void Awake()

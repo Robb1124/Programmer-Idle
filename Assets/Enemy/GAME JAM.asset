@@ -19,4 +19,4 @@ MonoBehaviour:
   sound: 1
   gameDesign: 1
   ptsMultiplier: 3
-  goldMultiplier: 6
+  goldMultiplier: 10

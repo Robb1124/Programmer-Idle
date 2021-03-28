@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af0c885fc24d65241921a01500ca8651, type: 3}
   m_Name: Coffee Machine
   m_EditorClassIdentifier: 
+  UPGRADE_ID: 5
   UpgradeImage: {fileID: 21300000, guid: fdac3944552db40448f2f7470489888f, type: 3}
   UpgradeTitle: Coffee Machine
   UpgradeDescription: Drug the whole studio with that sweet caffeine.

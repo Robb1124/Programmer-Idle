@@ -14,11 +14,16 @@ public class ResourcesManager : MonoBehaviour
     [SerializeField] private int playerGold = 0;
     [SerializeField] private int playerGems = 0;
 
+    public int PlayerGems => playerGems;
+
 
     private void Awake()
     {
         if (instance == null) instance = this;
         else Destroy(instance);
+        
+        playerGold = PlayerPrefs.GetInt("playerGold", playerGold);
+        playerGems = PlayerPrefs.GetInt("playerGems", PlayerGems);
     }
 
     private void Start()
@@ -35,7 +40,7 @@ public class ResourcesManager : MonoBehaviour
     private void RefreshText()
     {
         goldText.text = playerGold + " <sprite index=0>";
-        gemText.text = playerGems + " <sprite index=1>";
+        gemText.text = PlayerGems + " <sprite index=1>";
     }
 
     public bool CheckIfEnoughResource(Price price)
@@ -45,7 +50,7 @@ public class ResourcesManager : MonoBehaviour
             case CurrencyType.Gold:
                 return playerGold > price.amount;
             case CurrencyType.Gems:
-                return playerGems > price.amount;
+                return PlayerGems > price.amount;
             default:
                 throw new ArgumentOutOfRangeException();
         }
@@ -59,7 +64,7 @@ public class ResourcesManager : MonoBehaviour
                 playerGold -= price.amount;
                 break;
             case CurrencyType.Gems:
-                playerGems -= price.amount;
+                playerGems = PlayerGems - price.amount;
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
@@ -70,13 +75,19 @@ public class ResourcesManager : MonoBehaviour
     public void GameJamDone()
     {
         int rand = UnityEngine.Random.Range(1, 4);
-        playerGems += rand;
+        playerGems = PlayerGems + rand;
         RefreshText();
     }
 
     public void RewardVideo()
     {
-        playerGems += 5;
+        playerGems = PlayerGems + 5;
         RefreshText();
+    }
+
+    private void OnApplicationQuit()
+    {
+        PlayerPrefs.SetInt("playerGold", playerGold);
+        PlayerPrefs.SetInt("playerGems", PlayerGems);
     }
 }

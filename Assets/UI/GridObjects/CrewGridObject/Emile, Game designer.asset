@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6f0ead15afde6940a982f768f135c52, type: 3}
   m_Name: Emile, Game designer
   m_EditorClassIdentifier: 
+  UPGRADE_ID: 7
   UpgradeImage: {fileID: 21300000, guid: cc8a3b9fbaeaa42e89c0f5ba75213684, type: 3}
   UpgradeTitle: Emile, The Dice Master
   UpgradeDescription: Played every strategy and roguelike games. Beware feature creep.
   incrementalUpgrade:
     upgradeType: 9
-    baseValue: 10
+    baseValue: 20
     increasedByEachTime: 0.1
   Price:
     amount: 150

@@ -49,7 +49,7 @@ public class ProjectHolder : MonoBehaviour
             if(AllBarsAreDone())
             {
                 onGoingProject = false;
-                resourcesManager.AddGold(currentGoldReward);
+                resourcesManager.AddGold(Mathf.RoundToInt(currentGoldReward * AbilityManager.instance.GoldMultiplier));
                 if (isGameJam)
                     resourcesManager.GameJamDone();
                 OnTaskDone?.Invoke();
@@ -66,8 +66,8 @@ public class ProjectHolder : MonoBehaviour
         projectImage.sprite = currentProjectData.projectSprite;
         projectNameText.text = currentProjectData.projectName;
 
-        float productionPtsStageMultiplier = Mathf.Pow(1.20f, stageManager.currentNbrStage - 1);
-        float goldStageMultiplier = Mathf.Pow(1.3f, stageManager.currentNbrStage - 1);
+        float productionPtsStageMultiplier = CalculateProductionPtsStageMultiplier();
+        float goldStageMultiplier = CalculateGoldStageMultiplier();
         float variation;
         if (currentProjectData.programming)
         {
@@ -122,9 +122,20 @@ public class ProjectHolder : MonoBehaviour
         }
 
         variation = UnityEngine.Random.Range(0.75f, 1.25f);
+        
         currentGoldReward = Mathf.RoundToInt(BASE_GOLD * variation * currentProjectData.goldMultiplier * goldStageMultiplier);
         
         onGoingProject = true;
+    }
+
+    private float CalculateGoldStageMultiplier()
+    {
+        return Mathf.Pow(1.3f, stageManager.currentNbrStage - 1);
+    }
+
+    private float CalculateProductionPtsStageMultiplier()
+    {
+        return Mathf.Pow(1.20f, stageManager.currentNbrStage - 1);
     }
 
     private void ResetAllCurrentsProduction()
@@ -172,5 +183,13 @@ public class ProjectHolder : MonoBehaviour
     public float GetTotalCurrentProduction()
     {
         return currentArtisticPts + currentProgrammingPts + currentSoundPts + currentGameDesignPts;
+    }
+
+    public float GetAverageGoldPerProductionPts()
+    {
+        int averageProductionPointsNeeded = Mathf.RoundToInt(BASE_PTS * CalculateProductionPtsStageMultiplier());
+        int averageGoldGainedFromTask = Mathf.RoundToInt(BASE_GOLD * CalculateGoldStageMultiplier());
+
+        return (float)averageGoldGainedFromTask / averageProductionPointsNeeded;
     }
 }

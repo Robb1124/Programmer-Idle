@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 545a86a984f93a0449f3698488fd361d, type: 3}
   m_Name: Artistic Tap Upgrade
   m_EditorClassIdentifier: 
+  UPGRADE_ID: 2
   UpgradeImage: {fileID: 21300000, guid: 22f0596543ce94bf5a521ca3139cfe02, type: 3}
   UpgradeTitle: Draw Doodles in your sketchbook
   UpgradeDescription: You draw some doodles to relieve yourself form the game industry
     anxiety
   incrementalUpgrade:
     upgradeType: 2
-    baseValue: 6
+    baseValue: 9
     increasedByEachTime: 0.1
   Price:
     amount: 14

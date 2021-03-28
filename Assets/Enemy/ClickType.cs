@@ -7,5 +7,6 @@ public enum ClickType
     Programming,
     Artistic,
     Sound,
-    GameDesign
+    GameDesign,
+    All
 }

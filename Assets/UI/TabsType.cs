@@ -7,5 +7,7 @@ public enum TabsType
     None,
     Hero,
     Studio,
-    Crew
+    Crew,
+    Prestige,
+    Settings
 }

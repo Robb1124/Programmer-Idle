@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af0c885fc24d65241921a01500ca8651, type: 3}
   m_Name: Cheese Curds On Tuesday
   m_EditorClassIdentifier: 
+  UPGRADE_ID: 3
   UpgradeImage: {fileID: 21300000, guid: 338362a81ebce4b478c3844ee94a3109, type: 3}
   UpgradeTitle: Cheese Curds On Tuesday
   UpgradeDescription: All you can eat cheese curds on every tuesday. This is not

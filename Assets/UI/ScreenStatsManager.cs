@@ -83,4 +83,9 @@ public class ScreenStatsManager : MonoBehaviour
     {
         
     }
+
+    private void OnDestroy()
+    {
+        StatsManager.OnStatsChanged -= HandleStatsChanged;
+    }
 }

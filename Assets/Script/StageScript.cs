@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class StageScript : MonoBehaviour
 {
+    public static StageScript instance;
+    
     [SerializeField] private TextMeshProUGUI nbrProject;
     [SerializeField] private TextMeshProUGUI nbrStage;
     [SerializeField] private Image imgBackground;   
@@ -23,6 +25,10 @@ public class StageScript : MonoBehaviour
     
     private void Awake()
     {
+        if (instance == null) instance = this;
+        else Destroy(instance);
+        
+        currentNbrStage = PlayerPrefs.GetInt("currentNbrStage", currentNbrStage);
         ProjectHolder.OnTaskDone += HandleTaskDone;
         ChangeBackgroundImage();
         RefreshText();
@@ -67,4 +73,13 @@ public class StageScript : MonoBehaviour
             spriteIndex = 0;
     }
 
+    private void OnDestroy()
+    {
+        ProjectHolder.OnTaskDone -= HandleTaskDone;
+    }
+
+    private void OnApplicationQuit()
+    {
+        PlayerPrefs.SetInt("currentNbrStage", currentNbrStage);
+    }
 }

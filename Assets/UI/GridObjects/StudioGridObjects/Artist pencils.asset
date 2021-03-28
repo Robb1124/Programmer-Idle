@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af0c885fc24d65241921a01500ca8651, type: 3}
   m_Name: Artist pencils
   m_EditorClassIdentifier: 
+  UPGRADE_ID: 1
   UpgradeImage: {fileID: 21300000, guid: 413710b631bd5493ebbf1a29b2d82eb3, type: 3}
   UpgradeTitle: pencils
   UpgradeDescription: fgewafewfweaf

@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class StartProd : MonoBehaviour
 {
+    public static StartProd instance;
+    
     public TextMeshProUGUI txtProduction;
     public Image programmingProduction;
     public Image artisticProduction;
@@ -22,11 +24,14 @@ public class StartProd : MonoBehaviour
 
     private float totalMaxProduction;
     private float totalCurrentProduction;
-    
+    private bool allTapsActivated;
     private ClickType clickType;
 
     private void Awake()
     {
+        if (instance == null) instance = this;
+        else Destroy(instance);
+        
         Spawner.OnEnemySpawned += HandleNewEnemySpawn;
     }
 
@@ -72,6 +77,12 @@ public class StartProd : MonoBehaviour
             case ClickType.GameDesign:
                 projectHolder.currentGameDesignPts = Mathf.Clamp(projectHolder.currentGameDesignPts + StatsManager.instance.RequestStats(StatsQuery.CurrentGameDesignTap),0, projectHolder.maxGameDesignPts);
                 break;
+            case ClickType.All:
+                projectHolder.currentProgrammingPts = Mathf.Clamp(projectHolder.currentProgrammingPts + StatsManager.instance.RequestStats(StatsQuery.CurrentProgrammingTap),0, projectHolder.maxProgrammingPts);
+                projectHolder.currentArtisticPts = Mathf.Clamp(projectHolder.currentArtisticPts + StatsManager.instance.RequestStats(StatsQuery.CurrentArtisticTap) ,0, projectHolder.maxArtisticPts);
+                projectHolder.currentSoundPts = Mathf.Clamp(projectHolder.currentSoundPts + StatsManager.instance.RequestStats(StatsQuery.CurrentSoundTap),0, projectHolder.maxSoundPts);
+                projectHolder.currentGameDesignPts = Mathf.Clamp(projectHolder.currentGameDesignPts + StatsManager.instance.RequestStats(StatsQuery.CurrentGameDesignTap),0, projectHolder.maxGameDesignPts);
+                break;
             default:
                 throw new ArgumentOutOfRangeException();
         }
@@ -79,6 +90,7 @@ public class StartProd : MonoBehaviour
 
     public void SetClickType(int index)
     {
+        if (allTapsActivated) return;
         programmingFrame.enabled = false;
         artisticFrame.enabled = false;
         soundFrame.enabled = false;
@@ -103,5 +115,21 @@ public class StartProd : MonoBehaviour
                 gameDesignFrame.enabled = true;
                 break;
         }
+    }
+
+    public void ActivateAllTapsAbility()
+    {
+        allTapsActivated = true;
+        clickType = ClickType.All;
+        programmingFrame.enabled = true;
+        artisticFrame.enabled = true;
+        soundFrame.enabled = true;
+        gameDesignFrame.enabled = true;
+    }
+
+    public void DeactivateAllTapsAbility()
+    {
+        allTapsActivated = false;
+        SetClickType(0);
     }
 }

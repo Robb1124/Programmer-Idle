@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6f0ead15afde6940a982f768f135c52, type: 3}
   m_Name: Ronan, Programmer
   m_EditorClassIdentifier: 
+  UPGRADE_ID: 11
   UpgradeImage: {fileID: 21300000, guid: 7135d585f82ae408d8713917af908381, type: 3}
   UpgradeTitle: Ronan, The Competitive Programmer
   UpgradeDescription: Has been coding games since he was 3 months-old. Enough said.
   incrementalUpgrade:
     upgradeType: 6
-    baseValue: 10
+    baseValue: 20
     increasedByEachTime: 0.1
   Price:
     amount: 150

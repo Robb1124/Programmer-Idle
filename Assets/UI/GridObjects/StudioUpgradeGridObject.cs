@@ -15,8 +15,8 @@ public class StudioUpgradeGridObject : GridObject
     [SerializeField] private Price price;
     [SerializeField] private TextMeshProUGUI upgradeGainText;
     [SerializeField] private Button buyButton;
+    [SerializeField] private GameObject boughtPanel;
     private Upgrade upgrade;
-    private bool bought = false;
     private ResourcesManager resourcesManager;
 
     private void Start()
@@ -26,7 +26,7 @@ public class StudioUpgradeGridObject : GridObject
 
     private void Update()
     {
-        if (!bought && Time.frameCount % 6 == 0)
+        if (amountBought < 1 && Time.frameCount % 6 == 0)
         {
             buyButton.interactable = resourcesManager.CheckIfEnoughResource(price);
         }
@@ -42,17 +42,32 @@ public class StudioUpgradeGridObject : GridObject
         priceText.text = price.GetPriceText();
         upgrade = data.upgrade;
         upgradeGainText.text = UpgradeStringMaker.GetUpgradeString(data.upgrade.upgradeType, data.upgrade.upgradeValue);
+        if (amountBought > 0)
+        {
+            OpenBoughtPanel();
+            buyButton.interactable = false;
+        }
+        else
+        {
+            boughtPanel.SetActive(false);
+        }
+    }
+
+    private void OpenBoughtPanel()
+    {
+        boughtPanel.SetActive(true);
     }
 
     public void BuyButton()
     {
-        UnityEngine.Debug.Log("ya"); 
         if (resourcesManager.CheckIfEnoughResource(price))
         {
             resourcesManager.Buy(price);
             StatsManager.instance.UpgradePermanentStatsPercentage(upgrade);
-            bought = true;
+            amountBought++;
+            OpenBoughtPanel();
             buyButton.interactable = false;
+            ManualSave();
         }
     }
 }

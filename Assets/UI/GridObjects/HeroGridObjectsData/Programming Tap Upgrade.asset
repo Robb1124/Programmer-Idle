@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 545a86a984f93a0449f3698488fd361d, type: 3}
   m_Name: Programming Tap Upgrade
   m_EditorClassIdentifier: 
+  UPGRADE_ID: 10
   UpgradeImage: {fileID: 21300000, guid: ea194f6e0abb84f93887d90e9d53273c, type: 3}
   UpgradeTitle: Watch Programming Videos On Youtube
   UpgradeDescription: Programming gurus teach you the basics for the 6th time.
   incrementalUpgrade:
     upgradeType: 1
-    baseValue: 6
+    baseValue: 9
     increasedByEachTime: 0.1
   Price:
     amount: 14

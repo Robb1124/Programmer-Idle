@@ -18,5 +18,5 @@ MonoBehaviour:
   artistic: 1
   sound: 1
   gameDesign: 1
-  ptsMultiplier: 15
-  goldMultiplier: 30
+  ptsMultiplier: 6
+  goldMultiplier: 25
