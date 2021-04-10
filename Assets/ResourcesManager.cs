@@ -70,6 +70,11 @@ public class ResourcesManager : MonoBehaviour
                 throw new ArgumentOutOfRangeException();
         }
         RefreshText();
+        
+        #if UNITY_WEBGL
+        PlayerPrefs.SetInt("playerGold", playerGold);
+        PlayerPrefs.SetInt("playerGems", PlayerGems);
+        #endif
     }
 
     public void GameJamDone()

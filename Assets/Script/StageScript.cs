@@ -60,8 +60,12 @@ public class StageScript : MonoBehaviour
     
     void StageChange()
     {
+        ResourcesManager.instance.AddGems(4);
         currentNbrStage++;
         ChangeBackgroundImage();
+        #if UNITY_WEBGL
+        PlayerPrefs.SetInt("currentNbrStage", currentNbrStage);
+        #endif
         currentNbrProject = 0;
     }
     

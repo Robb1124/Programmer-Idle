@@ -15,12 +15,13 @@ public class OfflineProgress : MonoBehaviour
     [SerializeField] private ProjectHolder projectHolder;
     
     private int goldReward;
+
+    private float timer = 10f;
     
     void Start()
     {
         if (PlayerPrefs.HasKey("LASTLEAVE"))
         {
-            //do popup
             DateTime lastLogin = DateTime.Parse(PlayerPrefs.GetString("LASTLEAVE"));
 
             TimeSpan timeElapsed = DateTime.Now - lastLogin;
@@ -40,6 +41,18 @@ public class OfflineProgress : MonoBehaviour
         {
             offlineProgressPopupPanel.SetActive(false);
         }
+    }
+
+    private void Update()
+    {
+        #if UNITY_WEBGL
+        timer -= Time.deltaTime;
+        if (timer <= 0)
+        {
+            timer = 10;
+            PlayerPrefs.SetString("LASTLEAVE", DateTime.Now.ToString());
+        }
+        #endif
     }
 
     private void OnApplicationQuit()

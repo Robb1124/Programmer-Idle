@@ -22,7 +22,6 @@ public abstract class GridObject : MonoBehaviour
 
     protected void OnApplicationQuit()
     {
-        Debug.Log("ye");
         if(upgradeID > 0)
             PlayerPrefs.SetInt($"{upgradeID}", amountBought);
     }

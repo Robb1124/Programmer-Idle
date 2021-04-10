@@ -74,6 +74,8 @@ public class StatsManager : MonoBehaviour
         if (instance == null) instance = this;
         else Destroy(this);
         
+        //Screen.SetResolution(576, 1024, true);
+        
         baseProgrammingTap = PlayerPrefs.GetFloat("baseProgrammingTap", baseProgrammingTap);
         permanentProgrammingTapMultiplier = PlayerPrefs.GetFloat("permanentProgrammingTapMultiplier", permanentProgrammingTapMultiplier);
 
@@ -104,7 +106,7 @@ public class StatsManager : MonoBehaviour
 
     private void Start()
     {
-        OnStatsChanged?.Invoke();
+        Invoke_StatsChanged();
     }
 
     public string RequestStatsString(StatsQuery statsQuery)
@@ -205,7 +207,7 @@ public class StatsManager : MonoBehaviour
                 throw new ArgumentOutOfRangeException();
         }
 
-        OnStatsChanged?.Invoke();
+        Invoke_StatsChanged();
     }
 
     public void UpgradePermanentStatsPercentage(Upgrade upgrade)
@@ -246,7 +248,7 @@ public class StatsManager : MonoBehaviour
                 throw new ArgumentOutOfRangeException();
         }
         
-        OnStatsChanged?.Invoke();
+        Invoke_StatsChanged();
     }
 
     private void OnApplicationQuit()
@@ -287,5 +289,33 @@ public class StatsManager : MonoBehaviour
     public void Invoke_StatsChanged()
     {
         OnStatsChanged?.Invoke();
+        #if UNITY_WEBGL
+        PlayerPrefs.SetFloat("baseProgrammingTap", baseProgrammingTap);
+        PlayerPrefs.SetFloat("permanentProgrammingTapMultiplier", permanentProgrammingTapMultiplier);
+
+        PlayerPrefs.SetFloat("baseArtisticTap", baseArtisticTap);
+        PlayerPrefs.SetFloat("permanentArtisticTapMultiplier", permanentArtisticTapMultiplier);
+
+        PlayerPrefs.SetFloat("baseSoundTap", baseSoundTap);
+        PlayerPrefs.SetFloat("permanentSoundTapMultiplier", permanentSoundTapMultiplier);
+
+        PlayerPrefs.SetFloat("baseGameDesignTap", baseGameDesignTap);
+        PlayerPrefs.SetFloat("permanentGameDesignTapMultiplier", permanentGameDesignTapMultiplier);
+        
+        PlayerPrefs.SetFloat("baseProgrammingDPS", baseProgrammingDPS);
+        PlayerPrefs.SetFloat("permanentProgrammingDPSMultiplier", permanentProgrammingDPSMultiplier);
+
+        PlayerPrefs.SetFloat("baseArtisticDPS", baseArtisticDPS);
+        PlayerPrefs.SetFloat("permanentArtisticDPSMultiplier", permanentArtisticDPSMultiplier);
+
+        PlayerPrefs.SetFloat("baseSoundDPS", baseSoundDPS);
+        PlayerPrefs.SetFloat("permanentSoundDPSMultiplier", permanentSoundDPSMultiplier);
+
+        PlayerPrefs.SetFloat("baseGameDesignDPS", baseGameDesignDPS);
+        PlayerPrefs.SetFloat("permanentGameDesignDPSMultiplier", permanentGameDesignDPSMultiplier);
+
+        PlayerPrefs.SetFloat("studioProductivity", studioProductivity);
+        PlayerPrefs.SetFloat("allTapsMultiplier", allTapsMultiplier);
+        #endif
     }
 }
